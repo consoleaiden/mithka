@@ -778,6 +778,7 @@ class ChatMessage {
     this.lastCommentMessageId,
     bool? commentThreadMetadataKnown,
     this.blockedByUser = false,
+    this.blockedByAdFilter = false,
   }) : commentThreadMetadataKnown =
            commentThreadMetadataKnown ??
            (hasCommentThread ||
@@ -927,6 +928,12 @@ class ChatMessage {
   /// When true, this message is from a Telegram-blocked user and the
   /// "hide blocked user messages" feature is on.
   bool blockedByUser;
+
+  /// When true, the ad filter matched this message and its action is
+  /// "collapse", so it renders as an expandable placeholder instead of its
+  /// real content. Mutually exclusive with [blockedByUser]: both are written
+  /// by the same transcript pass, and a message is never collapsed twice.
+  bool blockedByAdFilter;
   List<MessageReaction> reactions = const [];
   String? forwardOrigin; // name of the original author when forwarded
   String? forwardAuthorSignature; // signed author within the origin channel

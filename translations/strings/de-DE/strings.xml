@@ -123,6 +123,16 @@
     <string name="accountSecurityTwoStepPasswordSaved">Zwei-Schritt-Passwort gespeichert.</string>
     <string name="accountSecurityTwoStepVerification">Zweistufige Bestätigung</string>
     <string name="accountSecurityVerifyRecoveryEmail">Überprüfen Sie die Wiederherstellungs-E-Mail</string>
+    <string name="adFilterActionCollapse">Einklappen</string>
+    <string name="adFilterActionCollapseSubtitle">Hinweis anzeigen, durch Antippen aufklappbar</string>
+    <string name="adFilterActionHide">Vollständig ausblenden</string>
+    <string name="adFilterActionHideSubtitle">Die Nachricht wird nie angezeigt</string>
+    <string name="adFilterActionTitle">Wenn eine Nachricht passt</string>
+    <string name="adFilterDescription">Fügen Sie Schlüsselwörter hinzu, um Werbung in Kanalbeiträgen zu erkennen. Treffer werden entfernt oder hinter einem Hinweis zusammengeklappt, den Sie antippen können.</string>
+    <string name="adFilterEmpty">Noch keine Schlüsselwörter. Nach dem Hinzufügen werden passende Beiträge gefiltert.</string>
+    <string name="adFilterInputPlaceholder">Anzeigen-Schlüsselwort eingeben</string>
+    <string name="adFilterTitle">Anzeigenfilter</string>
+    <string name="adFilteredMessage">Anzeige gefiltert</string>
     <string name="addMembersDone">Fertig</string>
     <string name="addMembersDoneWithCount">Fertig ({value1})</string>
     <string name="addMembersInviteMembersTitle">Mitglieder einladen</string>
@@ -1470,6 +1480,7 @@
     <string name="fileDetailDownloadProgress">Datei wird heruntergeladen… ({value1}/{value2})</string>
     <string name="fileDetailNoAppCanOpenFile">Keine App kann diese Datei öffnen</string>
     <string name="fileDetailOpen">Öffnen</string>
+    <string name="filterRuleCount">{value1} Regeln</string>
     <string name="gallerySendLiveAsVideo">Als Video senden</string>
     <string name="gallerySendOriginal">Original</string>
     <string name="generalAdvancedAutomaticDownload">Erweiterter automatischer Download</string>
@@ -2148,6 +2159,10 @@
     <string name="miniAppRecentEmpty">Keine kürzlich verwendeten Mini-Apps</string>
     <string name="miniAppRecentSection">Kürzlich verwendet</string>
     <string name="miniAppReload">Mini-App neu laden</string>
+    <string name="minorModeDescription">Schlüsselwörter hier entfernen passende Inhalte vollständig: sie werden nie angezeigt und können nicht aufgedeckt werden.</string>
+    <string name="minorModeEmpty">Noch keine Schlüsselwörter. Nach dem Hinzufügen werden passende Inhalte entfernt.</string>
+    <string name="minorModeInputPlaceholder">Zu blockierendes Schlüsselwort eingeben</string>
+    <string name="minorModeTitle">Jugendmodus</string>
     <string name="mithkaProActive">Mithka Pro ist aktiv</string>
     <string name="mithkaProActiveUntil">Mithka Pro ist bis {value1} aktiv</string>
     <string name="mithkaProBestValue">BESTER PREIS</string>

@@ -123,6 +123,16 @@
     <string name="accountSecurityTwoStepPasswordSaved">2단계 인증 비밀번호를 저장했습니다.</string>
     <string name="accountSecurityTwoStepVerification">2단계 인증</string>
     <string name="accountSecurityVerifyRecoveryEmail">복구 이메일 확인</string>
+    <string name="adFilterActionCollapse">접어서 표시</string>
+    <string name="adFilterActionCollapseSubtitle">탭하여 펼칠 수 있는 알림 표시</string>
+    <string name="adFilterActionHide">완전히 숨기기</string>
+    <string name="adFilterActionHideSubtitle">메시지가 표시되지 않습니다</string>
+    <string name="adFilterActionTitle">일치 시 처리 방식</string>
+    <string name="adFilterDescription">키워드를 추가하면 채널 게시물의 광고를 감지합니다. 일치하는 메시지는 삭제되거나 탭하여 펼칠 수 있는 알림으로 접힙니다.</string>
+    <string name="adFilterEmpty">키워드가 없습니다. 추가하면 일치하는 채널 게시물이 필터링됩니다.</string>
+    <string name="adFilterInputPlaceholder">광고 키워드 입력</string>
+    <string name="adFilterTitle">광고 필터</string>
+    <string name="adFilteredMessage">광고가 필터링됨</string>
     <string name="addMembersDone">완료</string>
     <string name="addMembersDoneWithCount">완료({value1})</string>
     <string name="addMembersInviteMembersTitle">멤버 초대</string>
@@ -1463,6 +1473,7 @@
     <string name="fileDetailDownloadProgress">파일 다운로드 중…({value1}/{value2})</string>
     <string name="fileDetailNoAppCanOpenFile">이 파일을 열 수 있는 앱이 없습니다</string>
     <string name="fileDetailOpen">열기</string>
+    <string name="filterRuleCount">규칙 {value1}개</string>
     <string name="gallerySendLiveAsVideo">동영상으로 전송</string>
     <string name="gallerySendOriginal">원본</string>
     <string name="generalAdvancedAutomaticDownload">고급 자동 다운로드</string>
@@ -2140,6 +2151,10 @@
     <string name="miniAppRecentEmpty">최근 사용한 미니 앱이 없습니다</string>
     <string name="miniAppRecentSection">최근 사용</string>
     <string name="miniAppReload">미니 앱 새로고침</string>
+    <string name="minorModeDescription">여기에 추가한 키워드와 일치하는 채널 콘텐츠는 완전히 제거되어 표시하거나 펼칠 수 없습니다.</string>
+    <string name="minorModeEmpty">키워드가 없습니다. 추가하면 일치하는 채널 콘텐츠가 완전히 차단됩니다.</string>
+    <string name="minorModeInputPlaceholder">차단할 키워드 입력</string>
+    <string name="minorModeTitle">미성년자 모드</string>
     <string name="mithkaProActive">Mithka Pro가 활성화되었습니다</string>
     <string name="mithkaProActiveUntil">Mithka Pro 활성 기간: {value1}까지</string>
     <string name="mithkaProBestValue">최고의 가치</string>

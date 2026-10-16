@@ -123,6 +123,16 @@
     <string name="accountSecurityTwoStepPasswordSaved">两步验证密码已保存。</string>
     <string name="accountSecurityTwoStepVerification">两步验证</string>
     <string name="accountSecurityVerifyRecoveryEmail">验证恢复电子邮件</string>
+    <string name="adFilterActionCollapse">折叠显示</string>
+    <string name="adFilterActionCollapseSubtitle">折叠为提示，点击可展开查看</string>
+    <string name="adFilterActionHide">彻底过滤</string>
+    <string name="adFilterActionHideSubtitle">消息不再显示</string>
+    <string name="adFilterActionTitle">命中后的处理方式</string>
+    <string name="adFilterDescription">添加关键词以识别频道内容中的广告。命中的消息将从聊天中移除，或折叠为可点击展开的提示。</string>
+    <string name="adFilterEmpty">还没有关键词。添加后，命中的频道内容将被过滤。</string>
+    <string name="adFilterInputPlaceholder">输入广告关键词</string>
+    <string name="adFilterTitle">广告过滤</string>
+    <string name="adFilteredMessage">广告信息已被过滤</string>
     <string name="addMembersDone">完成</string>
     <string name="addMembersDoneWithCount">完成({value1})</string>
     <string name="addMembersInviteMembersTitle">邀请成员</string>
@@ -1463,6 +1473,7 @@
     <string name="fileDetailDownloadProgress">文件下载中…({value1}/{value2})</string>
     <string name="fileDetailNoAppCanOpenFile">没有可打开此文件的应用</string>
     <string name="fileDetailOpen">打开</string>
+    <string name="filterRuleCount">{value1} 条规则</string>
     <string name="gallerySendLiveAsVideo">以视频发送</string>
     <string name="gallerySendOriginal">原图</string>
     <string name="generalAdvancedAutomaticDownload">高级自动下载</string>
@@ -2140,6 +2151,10 @@
     <string name="miniAppRecentEmpty">暂无最近使用的小程序</string>
     <string name="miniAppRecentSection">最近使用</string>
     <string name="miniAppReload">重新加载小程序</string>
+    <string name="minorModeDescription">在此添加的关键词会彻底移除命中的频道内容：完全不渲染，也无法展开查看。</string>
+    <string name="minorModeEmpty">还没有关键词。添加后，命中的频道内容将被完全屏蔽。</string>
+    <string name="minorModeInputPlaceholder">输入屏蔽关键词</string>
+    <string name="minorModeTitle">未成年模式</string>
     <string name="mithkaProActive">Mithka Pro 已启用</string>
     <string name="mithkaProActiveUntil">Mithka Pro 有效期至 {value1}</string>
     <string name="mithkaProBestValue">最超值</string>

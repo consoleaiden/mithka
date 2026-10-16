@@ -123,6 +123,16 @@
     <string name="accountSecurityTwoStepPasswordSaved">2段階認証のパスワードを保存しました。</string>
     <string name="accountSecurityTwoStepVerification">2段階認証</string>
     <string name="accountSecurityVerifyRecoveryEmail">回復メールの確認</string>
+    <string name="adFilterActionCollapse">折りたたんで表示</string>
+    <string name="adFilterActionCollapseSubtitle">タップで展開できる通知を表示</string>
+    <string name="adFilterActionHide">完全に非表示</string>
+    <string name="adFilterActionHideSubtitle">メッセージは表示されません</string>
+    <string name="adFilterActionTitle">一致した場合の処理</string>
+    <string name="adFilterDescription">キーワードを追加すると、チャンネルの投稿から広告を検出します。一致したメッセージは削除されるか、タップで展開できる通知として折りたたまれます。</string>
+    <string name="adFilterEmpty">キーワードはまだありません。追加すると一致したチャンネルの投稿がフィルターされます。</string>
+    <string name="adFilterInputPlaceholder">広告キーワードを入力</string>
+    <string name="adFilterTitle">広告フィルター</string>
+    <string name="adFilteredMessage">広告をフィルターしました</string>
     <string name="addMembersDone">完了</string>
     <string name="addMembersDoneWithCount">完了（{value1}）</string>
     <string name="addMembersInviteMembersTitle">メンバーを招待</string>
@@ -1463,6 +1473,7 @@
     <string name="fileDetailDownloadProgress">ファイルをダウンロード中…（{value1}/{value2}）</string>
     <string name="fileDetailNoAppCanOpenFile">このファイルを開けるアプリがありません</string>
     <string name="fileDetailOpen">開く</string>
+    <string name="filterRuleCount">{value1} 件のルール</string>
     <string name="gallerySendLiveAsVideo">動画として送信</string>
     <string name="gallerySendOriginal">オリジナル</string>
     <string name="generalAdvancedAutomaticDownload">自動ダウンロードの詳細設定</string>
@@ -2140,6 +2151,10 @@
     <string name="miniAppRecentEmpty">最近使用したミニアプリはありません</string>
     <string name="miniAppRecentSection">最近使用</string>
     <string name="miniAppReload">ミニアプリを再読み込み</string>
+    <string name="minorModeDescription">ここに追加したキーワードに一致するチャンネルのコンテンツは完全に除去され、表示も展開もできません。</string>
+    <string name="minorModeEmpty">キーワードはまだありません。追加すると一致したチャンネルのコンテンツが完全にブロックされます。</string>
+    <string name="minorModeInputPlaceholder">ブロックするキーワードを入力</string>
+    <string name="minorModeTitle">未成年モード</string>
     <string name="mithkaProActive">Mithka Pro は有効です</string>
     <string name="mithkaProActiveUntil">Mithka Pro は {value1} まで有効です</string>
     <string name="mithkaProBestValue">お得</string>

@@ -123,6 +123,16 @@
     <string name="accountSecurityTwoStepPasswordSaved">Se guardó la contraseña en dos pasos.</string>
     <string name="accountSecurityTwoStepVerification">Verificación en dos pasos</string>
     <string name="accountSecurityVerifyRecoveryEmail">Verificar correo electrónico de recuperación</string>
+    <string name="adFilterActionCollapse">Plegar</string>
+    <string name="adFilterActionCollapseSubtitle">Mostrar un aviso que puedes tocar para revelarlo</string>
+    <string name="adFilterActionHide">Ocultar por completo</string>
+    <string name="adFilterActionHideSubtitle">El mensaje nunca se muestra</string>
+    <string name="adFilterActionTitle">Cuando un mensaje coincide</string>
+    <string name="adFilterDescription">Añade palabras clave para detectar publicidad en las publicaciones. Los mensajes coincidentes se eliminan o se pliegan tras un aviso que puedes tocar para mostrarlos.</string>
+    <string name="adFilterEmpty">Sin palabras clave. Las publicaciones coincidentes se filtrarán al añadir una.</string>
+    <string name="adFilterInputPlaceholder">Introducir palabra clave de anuncio</string>
+    <string name="adFilterTitle">Filtro de anuncios</string>
+    <string name="adFilteredMessage">Anuncio filtrado</string>
     <string name="addMembersDone">Listo</string>
     <string name="addMembersDoneWithCount">Listo ({value1})</string>
     <string name="addMembersInviteMembersTitle">Invitar miembros</string>
@@ -1470,6 +1480,7 @@
     <string name="fileDetailDownloadProgress">Descargando archivo… ({value1}/{value2})</string>
     <string name="fileDetailNoAppCanOpenFile">No hay ninguna app para abrir este archivo</string>
     <string name="fileDetailOpen">Abrir</string>
+    <string name="filterRuleCount">{value1} reglas</string>
     <string name="gallerySendLiveAsVideo">Enviar como vídeo</string>
     <string name="gallerySendOriginal">Original</string>
     <string name="generalAdvancedAutomaticDownload">Descarga automática avanzada</string>
@@ -2148,6 +2159,10 @@
     <string name="miniAppRecentEmpty">No hay miniaplicaciones usadas recientemente</string>
     <string name="miniAppRecentSection">Usadas recientemente</string>
     <string name="miniAppReload">Recargar la miniaplicación</string>
+    <string name="minorModeDescription">Las palabras clave añadidas aquí eliminan por completo el contenido coincidente: nunca se muestra y no se puede revelar.</string>
+    <string name="minorModeEmpty">Sin palabras clave. El contenido coincidente se eliminará al añadir una.</string>
+    <string name="minorModeInputPlaceholder">Introducir palabra clave a bloquear</string>
+    <string name="minorModeTitle">Modo menor de edad</string>
     <string name="mithkaProActive">Mithka Pro está activo</string>
     <string name="mithkaProActiveUntil">Mithka Pro activo hasta el {value1}</string>
     <string name="mithkaProBestValue">MEJOR PRECIO</string>

@@ -42,6 +42,7 @@ import '../notifications/notification_preferences.dart';
 import '../pro/mithka_pro_service.dart';
 import '../profile/profile_detail_view.dart';
 import '../security/local_app_lock_controller.dart';
+import '../settings/ad_filter.dart';
 import '../settings/ai_settings_controller.dart';
 import '../settings/app_icon_controller.dart';
 import '../settings/auto_download_media_controller.dart';
@@ -53,6 +54,7 @@ import '../settings/developer_mode_controller.dart';
 import '../settings/edit_profile_view.dart';
 import '../settings/hidden_sender_store.dart';
 import '../settings/keyword_blocker.dart';
+import '../settings/minor_mode_filter.dart';
 import '../settings/rich_message_relay_config.dart';
 import '../settings/safety_notice_controller.dart';
 import '../settings/sensitive_content_controller.dart';
@@ -223,6 +225,8 @@ class _DesktopUtilityWindowAppState extends State<DesktopUtilityWindowApp> {
       ..initialize(widget.prefs)
       ..addListener(_handleHiddenSendersChanged);
     CountryMessageFilter.shared.initialize(widget.prefs);
+    AdFilter.shared.initialize(widget.prefs);
+    MinorModeFilter.shared.initialize(widget.prefs);
     MusicPlayerController.shared.initialize(widget.prefs);
     _autoDownload.initialize(widget.prefs);
     _notificationPreferences.initialize(widget.prefs);
@@ -251,6 +255,8 @@ class _DesktopUtilityWindowAppState extends State<DesktopUtilityWindowApp> {
         _developer,
         _safetyNotice,
         KeywordBlocker.shared,
+        AdFilter.shared,
+        MinorModeFilter.shared,
         CountryMessageFilter.shared,
         _desktopHotkeys!,
       ]) {

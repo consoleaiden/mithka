@@ -16,11 +16,13 @@ import '../chat/music_player_controller.dart';
 import '../chats/chat_folder_tag_controller.dart';
 import '../l10n/app_locale_controller.dart';
 import '../l10n/app_localizations.dart';
+import '../settings/ad_filter.dart';
 import '../settings/ai_settings_controller.dart';
 import '../settings/blocked_user_service.dart';
 import '../settings/country_message_filter.dart';
 import '../settings/hidden_sender_store.dart';
 import '../settings/keyword_blocker.dart';
+import '../settings/minor_mode_filter.dart';
 import '../settings/sensitive_content_controller.dart';
 import '../settings/translation_controller.dart';
 import '../tdlib/td_client.dart';
@@ -164,6 +166,8 @@ class _DesktopChatWindowAppState extends State<DesktopChatWindowApp> {
       ..initialize(widget.prefs)
       ..addListener(_handleHiddenSendersChanged);
     CountryMessageFilter.shared.initialize(widget.prefs);
+    AdFilter.shared.initialize(widget.prefs);
+    MinorModeFilter.shared.initialize(widget.prefs);
     MusicPlayerController.shared.initialize(widget.prefs);
     unawaited(_ai.initialize());
     unawaited(SensitiveContentController.shared.initialize());

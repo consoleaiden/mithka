@@ -17,9 +17,11 @@ import 'package:mithka/notifications/scope_notification_settings.dart';
 
 import '../channels/topic_list_actions.dart';
 import '../notifications/notification_settings_payload.dart';
+import '../settings/ad_filter.dart';
 import '../settings/blocked_user_service.dart';
 import '../settings/hidden_sender_store.dart';
 import '../settings/keyword_blocker.dart';
+import '../settings/minor_mode_filter.dart';
 import '../tdlib/forum_topic_index.dart';
 import '../tdlib/json_helpers.dart';
 import '../tdlib/td_client.dart';
@@ -1217,6 +1219,12 @@ class ChatViewModel extends ChangeNotifier {
     KeywordBlocker.shared.addListener(_applyKeywordFilter);
     HiddenSenderStore.shared.removeListener(_applyKeywordFilter);
     HiddenSenderStore.shared.addListener(_applyKeywordFilter);
+    // Ad rules and underage-mode rules feed the same transcript pass, so a
+    // keyword edit has to re-run it while this chat is open.
+    AdFilter.shared.removeListener(_applyKeywordFilter);
+    AdFilter.shared.addListener(_applyKeywordFilter);
+    MinorModeFilter.shared.removeListener(_applyKeywordFilter);
+    MinorModeFilter.shared.addListener(_applyKeywordFilter);
     () async {
       unawaited(_loadMe());
       unawaited(_loadAiCapabilities());
@@ -1464,6 +1472,8 @@ class ChatViewModel extends ChangeNotifier {
     _sub = null;
     KeywordBlocker.shared.removeListener(_applyKeywordFilter);
     HiddenSenderStore.shared.removeListener(_applyKeywordFilter);
+    AdFilter.shared.removeListener(_applyKeywordFilter);
+    MinorModeFilter.shared.removeListener(_applyKeywordFilter);
     _client.send({'@type': 'closeChat', 'chat_id': chatId});
   }
 
@@ -1472,6 +1482,8 @@ class ChatViewModel extends ChangeNotifier {
     _isDisposed = true;
     KeywordBlocker.shared.removeListener(_applyKeywordFilter);
     HiddenSenderStore.shared.removeListener(_applyKeywordFilter);
+    AdFilter.shared.removeListener(_applyKeywordFilter);
+    MinorModeFilter.shared.removeListener(_applyKeywordFilter);
     if (_forumTopicIndexListening) {
       ForumTopicIndex.shared.removeListener(_onForumTopicIndexChanged);
       _forumTopicIndexListening = false;
@@ -6963,7 +6975,23 @@ class ChatViewModel extends ChangeNotifier {
     if (senderId != null && _blockedSenderIds.contains(senderId)) return true;
     if (KeywordBlocker.shared.isSenderBlocked(senderId)) return true;
     if (HiddenSenderStore.shared.hides(senderId, chatId)) return true;
-    return KeywordBlocker.shared.matches(message.text);
+    if (KeywordBlocker.shared.matches(message.text)) return true;
+    // Underage mode removes unsuitable content outright; there is no collapsed
+    // state to reveal later.
+    if (MinorModeFilter.shared.matches(message.text)) return true;
+    // Ad filter: only the "hide" action drops a message here. "collapse" keeps
+    // it in the transcript and flags it for the placeholder instead.
+    final adFilter = AdFilter.shared;
+    return adFilter.matches(message.text) &&
+        adFilter.action == AdFilterAction.hide;
+  }
+
+  /// True when the ad filter matched this message and its action is
+  /// "collapse". [_isBlockedMessage] has already dropped the "hide" matches, so
+  /// anything reaching here and matching is a collapse.
+  bool _collapsesAsAd(ChatMessage message) {
+    if (message.isOutgoing || message.isService) return false;
+    return AdFilter.shared.collapses(message.text);
   }
 
   /// Rebuilds `messages` from `_allMessages` and refreshes the lookup indexes.
@@ -7000,6 +7028,7 @@ class ChatViewModel extends ChangeNotifier {
           !message.isService &&
           senderId != null &&
           blockedUserService.isBlocked(senderId);
+      message.blockedByAdFilter = _collapsesAsAd(message);
       visible.add(message);
       _messagesById[message.id] = message;
       if (senderId != null) {
@@ -7052,6 +7081,7 @@ class ChatViewModel extends ChangeNotifier {
           !message.isService &&
           senderId != null &&
           blockedUserService.isBlocked(senderId);
+      message.blockedByAdFilter = _collapsesAsAd(message);
       // Reassigned, never mutated: chat_view's transcript memo keys on the
       // list's identity.
       messages = [...messages, message];

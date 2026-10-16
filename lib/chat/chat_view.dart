@@ -1119,8 +1119,15 @@ class _TranscriptEntry {
 
   ChatMessage get first => messages.first;
   ChatMessage get last => messages.last;
+  /// True when every message here is collapsed — by the blocked-user feature
+  /// or by the ad filter.
   bool get isBlockedRun =>
-      messages.isNotEmpty && messages.every((message) => message.blockedByUser);
+      messages.isNotEmpty && messages.every(isCollapsedMessage);
+
+  /// True when the ad filter collapsed this run, so its placeholder reads as
+  /// an ad notice instead of a blocked-user notice.
+  bool get isAdRun =>
+      messages.isNotEmpty && messages.every((message) => message.blockedByAdFilter);
   ChatMediaAlbumKind? get mediaAlbumKind =>
       messages.length > 1 && !isBlockedRun ? chatMediaAlbumKind(first) : null;
   bool get isImageGroup => mediaAlbumKind == ChatMediaAlbumKind.visual;
@@ -1129,7 +1136,9 @@ class _TranscriptEntry {
   /// Stable identity for element reuse across index shifts (history pages
   /// prepend and shift every index).
   late final Key key = ValueKey(
-    isBlockedRun
+    isAdRun
+        ? 'ad-${last.id}'
+        : isBlockedRun
         ? 'blocked-${last.id}'
         : first.mediaAlbumId != 0
         ? 'album-${first.mediaAlbumId}-${last.id}'
@@ -4420,7 +4429,9 @@ class _ChatViewState extends State<ChatView> {
     return Align(
       alignment: Alignment.centerLeft,
       child: GestureDetector(
-        key: ValueKey('blocked-message-run-$runId'),
+        key: ValueKey(
+          '${entry.isAdRun ? 'ad' : 'blocked'}-message-run-$runId',
+        ),
         behavior: HitTestBehavior.opaque,
         onTap: () => setState(() => _expandedBlockedRunIds.add(runId)),
         child: Padding(
@@ -4437,13 +4448,42 @@ class _ChatViewState extends State<ChatView> {
                 width: 0.5,
               ),
             ),
-            child: Text(
-              '\u00B7 \u00B7 \u00B7',
-              style: TextStyle(fontSize: 16, height: 1, color: c.textSecondary),
-            ),
+            // An ad-filtered run says so; a blocked-user run stays the
+            // unobtrusive ellipsis it has always been.
+            child: entry.isAdRun
+                ? _adFilterPlaceholderLabel(context)
+                : Text(
+                    '\u00B7 \u00B7 \u00B7',
+                    style: TextStyle(
+                      fontSize: 16,
+                      height: 1,
+                      color: c.textSecondary,
+                    ),
+                  ),
           ),
         ),
       ),
+    );
+  }
+
+  /// Label inside an ad-filtered placeholder: what was filtered, and the hint
+  /// that tapping reveals it.
+  Widget _adFilterPlaceholderLabel(BuildContext context) {
+    final c = context.colors;
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        AppIcon(HeroAppIcons.ban, size: 13, color: c.textSecondary),
+        const SizedBox(width: 6),
+        Flexible(
+          child: Text(
+            AppStrings.t(AppStringKeys.adFilteredMessage),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(fontSize: 13, height: 1, color: c.textSecondary),
+          ),
+        ),
+      ],
     );
   }
 
@@ -10232,7 +10272,7 @@ class _ChatViewState extends State<ChatView> {
     var i = 0;
     while (i < messages.length) {
       final first = messages[i];
-      if (!first.blockedByUser) {
+      if (!isCollapsedMessage(first)) {
         entries.add(_TranscriptEntry([first], i));
         i++;
         continue;
@@ -10260,7 +10300,7 @@ class _ChatViewState extends State<ChatView> {
     var i = 0;
     while (i < messages.length) {
       final first = messages[i];
-      if (first.blockedByUser) {
+      if (isCollapsedMessage(first)) {
         final run = <ChatMessage>[first];
         final j = blockedMessageRunEnd(
           messages,

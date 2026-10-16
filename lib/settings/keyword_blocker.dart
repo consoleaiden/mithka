@@ -11,6 +11,8 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'keyword_rules.dart';
+
 class KeywordBlocker extends ChangeNotifier {
   KeywordBlocker._();
   static final KeywordBlocker shared = KeywordBlocker._();
@@ -26,8 +28,7 @@ class KeywordBlocker extends ChangeNotifier {
   // matches() runs per keyword per message over the whole loaded transcript,
   // so the rules are compiled and case-folded once per keyword-list change
   // instead of once per test.
-  List<RegExp> _compiledRules = const [];
-  List<String> _plainLowered = const [];
+  KeywordRuleSet _rules = KeywordRuleSet.empty;
 
   List<String> get keywords => List.unmodifiable(_keywords);
   bool get hasTextRules => _keywords.isNotEmpty;
@@ -36,7 +37,7 @@ class KeywordBlocker extends ChangeNotifier {
 
   void initialize(SharedPreferences prefs) {
     _prefs = prefs;
-    _keywords = _normalizeList(prefs.getStringList(_prefsKey) ?? const []);
+    _keywords = normalizeKeywordList(prefs.getStringList(_prefsKey) ?? const []);
     _listUrl = prefs.getString(_urlKey)?.trim() ?? '';
     _blockedSenderIds = _parseSenderIds(
       prefs.getStringList(_senderKey) ?? const [],
@@ -45,34 +46,10 @@ class KeywordBlocker extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool matches(String text) {
-    if (_keywords.isEmpty || text.trim().isEmpty) return false;
-    // Regex rules keep matching the original text, plain keywords the folded
-    // copy — the same split the per-call version made.
-    for (final regex in _compiledRules) {
-      if (regex.hasMatch(text)) return true;
-    }
-    if (_plainLowered.isEmpty) return false;
-    final normalized = text.toLowerCase();
-    for (final keyword in _plainLowered) {
-      if (normalized.contains(keyword)) return true;
-    }
-    return false;
-  }
+  bool matches(String text) => _rules.matches(text);
 
   void _rebuildRules() {
-    final compiled = <RegExp>[];
-    final plain = <String>[];
-    for (final keyword in _keywords) {
-      final regex = _regexFromRule(keyword);
-      if (regex != null) {
-        compiled.add(regex);
-      } else {
-        plain.add(keyword.toLowerCase());
-      }
-    }
-    _compiledRules = compiled;
-    _plainLowered = plain;
+    _rules = KeywordRuleSet.compile(_keywords);
   }
 
   bool isSenderBlocked(int? senderId) {
@@ -80,7 +57,7 @@ class KeywordBlocker extends ChangeNotifier {
   }
 
   void add(String value) {
-    final keyword = _normalize(value);
+    final keyword = normalizeKeyword(value);
     if (keyword == null) return;
     if (_keywords.any((k) => k.toLowerCase() == keyword.toLowerCase())) return;
     _keywords = [..._keywords, keyword];
@@ -108,7 +85,7 @@ class KeywordBlocker extends ChangeNotifier {
   }
 
   void replaceAll(List<String> values) {
-    _keywords = _normalizeList(values);
+    _keywords = normalizeKeywordList(values);
     _save();
   }
 
@@ -134,29 +111,12 @@ class KeywordBlocker extends ChangeNotifier {
       final body = await utf8.decodeStream(response);
       final remote = _parseList(body);
       final before = _keywords.length;
-      _keywords = _normalizeList([..._keywords, ...remote]);
+      _keywords = normalizeKeywordList([..._keywords, ...remote]);
       _save();
       return _keywords.length - before;
     } finally {
       client.close(force: true);
     }
-  }
-
-  static List<String> _normalizeList(List<String> values) {
-    final out = <String>[];
-    final seen = <String>{};
-    for (final value in values) {
-      final keyword = _normalize(value);
-      if (keyword == null) continue;
-      final key = keyword.toLowerCase();
-      if (seen.add(key)) out.add(keyword);
-    }
-    return out;
-  }
-
-  static String? _normalize(String value) {
-    final keyword = value.trim();
-    return keyword.isEmpty ? null : keyword;
   }
 
   static List<String> _parseList(String body) {
@@ -175,32 +135,6 @@ class KeywordBlocker extends ChangeNotifier {
         .whereType<int>()
         .where((value) => value > 0)
         .toSet();
-  }
-
-  static RegExp? _regexFromRule(String rule) {
-    final trimmed = rule.trim();
-    if (trimmed.startsWith('re:') || trimmed.startsWith('regex:')) {
-      final pattern = trimmed.substring(trimmed.indexOf(':') + 1).trim();
-      if (pattern.isEmpty) return null;
-      return _safeRegex(pattern, caseSensitive: false);
-    }
-    if (trimmed.length >= 2 && trimmed.startsWith('/')) {
-      final lastSlash = trimmed.lastIndexOf('/');
-      if (lastSlash > 0) {
-        final pattern = trimmed.substring(1, lastSlash);
-        final flags = trimmed.substring(lastSlash + 1);
-        return _safeRegex(pattern, caseSensitive: !flags.contains('i'));
-      }
-    }
-    return null;
-  }
-
-  static RegExp? _safeRegex(String pattern, {required bool caseSensitive}) {
-    try {
-      return RegExp(pattern, caseSensitive: caseSensitive);
-    } catch (_) {
-      return null;
-    }
   }
 
   void _save() {

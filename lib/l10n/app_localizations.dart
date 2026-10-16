@@ -181,6 +181,17 @@ abstract final class AppStringKeys {
   static const feedbackReportSent = 'feedbackReportSent';
   static const feedbackReportTitle = 'feedbackReportTitle';
   static const accentColorPickerSave = 'accentColorPickerSave';
+  static const adFilteredMessage = 'adFilteredMessage';
+  static const adFilterActionCollapse = 'adFilterActionCollapse';
+  static const adFilterActionCollapseSubtitle =
+      'adFilterActionCollapseSubtitle';
+  static const adFilterActionHide = 'adFilterActionHide';
+  static const adFilterActionHideSubtitle = 'adFilterActionHideSubtitle';
+  static const adFilterActionTitle = 'adFilterActionTitle';
+  static const adFilterDescription = 'adFilterDescription';
+  static const adFilterEmpty = 'adFilterEmpty';
+  static const adFilterInputPlaceholder = 'adFilterInputPlaceholder';
+  static const adFilterTitle = 'adFilterTitle';
   static const accountBackupCopied = 'accountBackupCopied';
   static const accountBackupCopyPyrogramMessage =
       'accountBackupCopyPyrogramMessage';
@@ -1602,6 +1613,7 @@ abstract final class AppStringKeys {
   static const fileDetailDownloadProgress = 'fileDetailDownloadProgress';
   static const fileDetailNoAppCanOpenFile = 'fileDetailNoAppCanOpenFile';
   static const fileDetailOpen = 'fileDetailOpen';
+  static const filterRuleCount = 'filterRuleCount';
   static const gallerySendLiveAsVideo = 'gallerySendLiveAsVideo';
   static const gallerySendOriginal = 'gallerySendOriginal';
   static const generalAutoDownloadDisabled = 'generalAutoDownloadDisabled';
@@ -2093,6 +2105,10 @@ abstract final class AppStringKeys {
   static const miniAppNoMatches = 'miniAppNoMatches';
   static const miniAppOpenInBrowser = 'miniAppOpenInBrowser';
   static const miniAppRecentEmpty = 'miniAppRecentEmpty';
+  static const minorModeTitle = 'minorModeTitle';
+  static const minorModeDescription = 'minorModeDescription';
+  static const minorModeInputPlaceholder = 'minorModeInputPlaceholder';
+  static const minorModeEmpty = 'minorModeEmpty';
   static const miniAppRecentSection = 'miniAppRecentSection';
   static const miniAppReload = 'miniAppReload';
   static const momentsCommentCount = 'momentsCommentCount';

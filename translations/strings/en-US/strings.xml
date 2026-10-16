@@ -123,6 +123,16 @@
     <string name="accountSecurityTwoStepPasswordSaved">Two-step password saved.</string>
     <string name="accountSecurityTwoStepVerification">Two-Step Verification</string>
     <string name="accountSecurityVerifyRecoveryEmail">Verify Recovery Email</string>
+    <string name="adFilterActionCollapse">Collapse</string>
+    <string name="adFilterActionCollapseSubtitle">Show a notice you can tap to reveal it</string>
+    <string name="adFilterActionHide">Hide completely</string>
+    <string name="adFilterActionHideSubtitle">The message is never rendered</string>
+    <string name="adFilterActionTitle">When a message matches</string>
+    <string name="adFilterDescription">Add keywords to catch advertising in channel posts. Matching messages are either removed from the chat or collapsed behind a notice you can tap to reveal.</string>
+    <string name="adFilterEmpty">No keywords yet. Matching channel posts are filtered once you add one.</string>
+    <string name="adFilterInputPlaceholder">Enter ad keyword</string>
+    <string name="adFilterTitle">Ad Filter</string>
+    <string name="adFilteredMessage">Ad filtered — tap to show</string>
     <string name="addMembersDone">Done</string>
     <string name="addMembersDoneWithCount">Done ({value1})</string>
     <string name="addMembersInviteMembersTitle">Invite Members</string>
@@ -1470,6 +1480,7 @@
     <string name="fileDetailDownloadProgress">Downloading file… ({value1}/{value2})</string>
     <string name="fileDetailNoAppCanOpenFile">No app can open this file</string>
     <string name="fileDetailOpen">Open</string>
+    <string name="filterRuleCount">{value1} rules</string>
     <string name="gallerySendLiveAsVideo">Send as video</string>
     <string name="gallerySendOriginal">Original</string>
     <string name="generalAdvancedAutomaticDownload">Advanced automatic download</string>
@@ -2148,6 +2159,10 @@
     <string name="miniAppRecentEmpty">No recently used Mini Apps</string>
     <string name="miniAppRecentSection">Recently Used</string>
     <string name="miniAppReload">Reload Mini App</string>
+    <string name="minorModeDescription">Keywords added here remove matching channel content entirely — it is never rendered and cannot be revealed.</string>
+    <string name="minorModeEmpty">No keywords yet. Matching channel content is removed once you add one.</string>
+    <string name="minorModeInputPlaceholder">Enter keyword to block</string>
+    <string name="minorModeTitle">Underage Mode</string>
     <string name="mithkaProActive">Mithka Pro is active</string>
     <string name="mithkaProActiveUntil">Mithka Pro active until {value1}</string>
     <string name="mithkaProBestValue">BEST VALUE</string>

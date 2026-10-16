@@ -123,6 +123,16 @@
     <string name="accountSecurityTwoStepPasswordSaved">Mot de passe à deux étapes enregistré.</string>
     <string name="accountSecurityTwoStepVerification">Double authentification</string>
     <string name="accountSecurityVerifyRecoveryEmail">Vérifier l'e-mail de récupération</string>
+    <string name="adFilterActionCollapse">Replier</string>
+    <string name="adFilterActionCollapseSubtitle">Afficher une notice à toucher pour la révéler</string>
+    <string name="adFilterActionHide">Masquer complètement</string>
+    <string name="adFilterActionHideSubtitle">Le message n'est jamais affiché</string>
+    <string name="adFilterActionTitle">Quand un message correspond</string>
+    <string name="adFilterDescription">Ajoutez des mots-clés pour détecter la publicité dans les publications. Les messages correspondants sont supprimés ou repliés derrière une notice à toucher pour les afficher.</string>
+    <string name="adFilterEmpty">Aucun mot-clé. Les publications correspondantes seront filtrées après un ajout.</string>
+    <string name="adFilterInputPlaceholder">Saisir un mot-clé publicitaire</string>
+    <string name="adFilterTitle">Filtre publicitaire</string>
+    <string name="adFilteredMessage">Publicité filtrée</string>
     <string name="addMembersDone">Terminé</string>
     <string name="addMembersDoneWithCount">Terminé ({value1})</string>
     <string name="addMembersInviteMembersTitle">Inviter des membres</string>
@@ -1470,6 +1480,7 @@
     <string name="fileDetailDownloadProgress">Téléchargement du fichier… ({value1}/{value2})</string>
     <string name="fileDetailNoAppCanOpenFile">Aucune application ne peut ouvrir ce fichier</string>
     <string name="fileDetailOpen">Ouvrir</string>
+    <string name="filterRuleCount">{value1} règles</string>
     <string name="gallerySendLiveAsVideo">Envoyer en vidéo</string>
     <string name="gallerySendOriginal">Original</string>
     <string name="generalAdvancedAutomaticDownload">Téléchargement automatique avancé</string>
@@ -2148,6 +2159,10 @@
     <string name="miniAppRecentEmpty">Aucune mini-application utilisée récemment</string>
     <string name="miniAppRecentSection">Utilisées récemment</string>
     <string name="miniAppReload">Recharger la mini-application</string>
+    <string name="minorModeDescription">Les mots-clés ajoutés ici suppriment entièrement le contenu correspondant : il n'est jamais affiché et ne peut pas être révélé.</string>
+    <string name="minorModeEmpty">Aucun mot-clé. Le contenu correspondant sera supprimé après un ajout.</string>
+    <string name="minorModeInputPlaceholder">Saisir un mot-clé à bloquer</string>
+    <string name="minorModeTitle">Mode mineur</string>
     <string name="mithkaProActive">Mithka Pro est actif</string>
     <string name="mithkaProActiveUntil">Mithka Pro actif jusqu’au {value1}</string>
     <string name="mithkaProBestValue">MEILLEUR PRIX</string>

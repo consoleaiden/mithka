@@ -17,8 +17,10 @@ import '../app/performance_metrics.dart';
 import '../communities/community_models.dart';
 import '../notifications/notification_settings_payload.dart';
 import '../notifications/scope_notification_settings.dart';
+import '../settings/ad_filter.dart';
 import '../settings/hidden_sender_store.dart';
 import '../settings/keyword_blocker.dart';
+import '../settings/minor_mode_filter.dart';
 import '../tdlib/chat_membership.dart';
 import '../tdlib/json_helpers.dart';
 import '../tdlib/td_client.dart';
@@ -1553,7 +1555,14 @@ class ChatListViewModel extends ChangeNotifier {
   String _previewText(String text, {int? chatId, int? senderId}) {
     final hidden =
         chatId != null && HiddenSenderStore.shared.hides(senderId, chatId);
-    return hidden || KeywordBlocker.shared.matches(text)
+    // The ad filter collapses in place, but the chat list must not spill a
+    // collapsed message's text — that would defeat the collapse. Underage mode
+    // and the spam blocker drop the message outright.
+    final filtered =
+        KeywordBlocker.shared.matches(text) ||
+        AdFilter.shared.matches(text) ||
+        MinorModeFilter.shared.matches(text);
+    return hidden || filtered
         ? AppStringKeys.chatListBlockedPlaceholder
         : text;
   }

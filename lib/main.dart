@@ -69,6 +69,7 @@ import 'platform/system_ui.dart';
 import 'pro/mithka_pro_service.dart';
 import 'security/local_app_lock_controller.dart';
 import 'security/local_app_lock_views.dart';
+import 'settings/ad_filter.dart';
 import 'settings/ai_settings_controller.dart';
 import 'settings/app_icon_controller.dart';
 import 'settings/auto_download_media_controller.dart';
@@ -79,6 +80,7 @@ import 'settings/desktop_hotkey_controller.dart';
 import 'settings/developer_mode_controller.dart';
 import 'settings/hidden_sender_store.dart';
 import 'settings/keyword_blocker.dart';
+import 'settings/minor_mode_filter.dart';
 import 'settings/safety_notice_controller.dart';
 import 'settings/sensitive_content_controller.dart';
 import 'settings/translation_controller.dart';
@@ -248,6 +250,8 @@ Future<void> _bootstrapAndRunApp() async {
   KeywordBlocker.shared.initialize(prefs);
   HiddenSenderStore.shared.initialize(prefs);
   CountryMessageFilter.shared.initialize(prefs);
+  AdFilter.shared.initialize(prefs);
+  MinorModeFilter.shared.initialize(prefs);
   unawaited(SensitiveContentController.shared.initialize());
   MusicPlayerController.shared.initialize(prefs);
   // Preload Telegram blocked-user list so chat filters have data right away.
@@ -638,6 +642,8 @@ class _MithkaAppState extends State<MithkaApp> with WidgetsBindingObserver {
         KeywordBlocker.shared.initialize(widget.prefs);
         HiddenSenderStore.shared.initialize(widget.prefs);
         CountryMessageFilter.shared.initialize(widget.prefs);
+        AdFilter.shared.initialize(widget.prefs);
+        MinorModeFilter.shared.initialize(widget.prefs);
         MusicPlayerController.shared.initialize(widget.prefs);
         BlockedUserService.shared.enabled = nextTheme.hideBlockedUserMessages;
         if (nextTheme.hideBlockedUserMessages) {

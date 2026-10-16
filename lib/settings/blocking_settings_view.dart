@@ -7,12 +7,16 @@ import '../l10n/app_localizations.dart';
 import '../theme/app_motion.dart';
 import '../theme/app_theme.dart';
 import '../theme/theme_controller.dart';
+import 'ad_filter.dart';
+import 'ad_filter_view.dart';
 import 'blocked_user_service.dart';
 import 'country_message_filter.dart';
 import 'country_message_filter_view.dart';
 import 'hidden_sender_store.dart';
 import 'hidden_senders_view.dart';
 import 'keyword_blocker_view.dart';
+import 'minor_mode_filter.dart';
+import 'minor_mode_view.dart';
 
 class BlockingSettingsView extends StatelessWidget {
   const BlockingSettingsView({super.key});
@@ -47,6 +51,44 @@ class BlockingSettingsView extends StatelessWidget {
                 onTap: () => Navigator.of(context).push(
                   AppPageRoute<void>(
                     pageBuilder: (_, _, _) => const KeywordBlockerView(),
+                  ),
+                ),
+              ),
+              ListenableBuilder(
+                listenable: AdFilter.shared,
+                builder: (context, _) => SettingsRow(
+                  key: const ValueKey('content-filters-ad-filter'),
+                  title: AppStringKeys.adFilterTitle,
+                  value: _ruleCountValue(
+                    enabled: AdFilter.shared.enabled,
+                    count: AdFilter.shared.keywords.length,
+                  ),
+                  leading: const SettingsLeadingIcon(
+                    icon: HeroAppIcons.volumeHigh,
+                  ),
+                  onTap: () => Navigator.of(context).push(
+                    AppPageRoute<void>(
+                      pageBuilder: (_, _, _) => const AdFilterView(),
+                    ),
+                  ),
+                ),
+              ),
+              ListenableBuilder(
+                listenable: MinorModeFilter.shared,
+                builder: (context, _) => SettingsRow(
+                  key: const ValueKey('content-filters-minor-mode'),
+                  title: AppStringKeys.minorModeTitle,
+                  value: _ruleCountValue(
+                    enabled: MinorModeFilter.shared.enabled,
+                    count: MinorModeFilter.shared.keywords.length,
+                  ),
+                  leading: const SettingsLeadingIcon(
+                    icon: HeroAppIcons.shieldHalved,
+                  ),
+                  onTap: () => Navigator.of(context).push(
+                    AppPageRoute<void>(
+                      pageBuilder: (_, _, _) => const MinorModeView(),
+                    ),
                   ),
                 ),
               ),
@@ -125,4 +167,11 @@ class BlockingSettingsView extends StatelessWidget {
 
   Widget _card(BuildContext context, List<Widget> children) =>
       SettingsCard.rows(rows: children);
+}
+
+/// Trailing summary for a keyword-driven filter row: "Off" until it is both
+/// switched on and has at least one rule, then the rule count.
+String _ruleCountValue({required bool enabled, required int count}) {
+  if (!enabled || count == 0) return AppStringKeys.blockingCountryOff;
+  return AppStrings.t(AppStringKeys.filterRuleCount, {'value1': count});
 }
