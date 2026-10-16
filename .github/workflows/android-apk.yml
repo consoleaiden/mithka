@@ -143,20 +143,20 @@ jobs:
           KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
           KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
         run: |
-          if [ -z "${KEYSTORE_B64:-}" ]; then
-            echo "No keystore secret - release APK will be debug-signed (sideload only)."
-            exit 0
-          fi
-          : "${STORE_PASSWORD:?set ANDROID_KEYSTORE_PASSWORD alongside ANDROID_KEYSTORE_BASE64}"
-          : "${KEY_ALIAS:?set ANDROID_KEY_ALIAS alongside ANDROID_KEYSTORE_BASE64}"
-          printf '%s' "$KEYSTORE_B64" | base64 -d > android/app/upload-keystore.jks
-          cat > android/key.properties <<EOF
+          if [ -n "${KEYSTORE_B64:-}" ]; then
+            : "${STORE_PASSWORD:?set ANDROID_KEYSTORE_PASSWORD alongside ANDROID_KEYSTORE_BASE64}"
+            : "${KEY_ALIAS:?set ANDROID_KEY_ALIAS alongside ANDROID_KEYSTORE_BASE64}"
+            printf '%s' "$KEYSTORE_B64" | base64 -d > android/app/upload-keystore.jks
+            cat > android/key.properties <<EOF
           storePassword=$STORE_PASSWORD
           keyPassword=${KEY_PASSWORD:-$STORE_PASSWORD}
           keyAlias=$KEY_ALIAS
           storeFile=upload-keystore.jks
           EOF
-          echo "Release keystore decoded."
+            echo "Release keystore decoded."
+          else
+            echo "No keystore secret configured - release APK will be debug-signed (sideload only)."
+          fi
 
       - name: Build release APKs
         env:
