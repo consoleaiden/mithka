@@ -1,0 +1,57 @@
+name: 🎨 Format autofix
+
+# Runs `dart format` over the Dart sources and commits any reformatting, so a
+# contributor working without a local Flutter checkout can still satisfy the
+# Quality workflow's formatting gate.
+#
+# Idempotent: when nothing changes the job exits without committing, so a
+# follow-up push cannot loop.
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'lib/**'
+      - 'test/**'
+      - 'integration_test/**'
+      - 'test_driver/**'
+  workflow_dispatch:
+
+concurrency:
+  group: format-autofix-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  format:
+    name: Apply dart format
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Set up Flutter 3.44.2
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.2'
+          channel: stable
+          cache: true
+
+      - name: Format Dart sources
+        run: dart format lib test integration_test test_driver
+
+      - name: Commit if formatting changed anything
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Already formatted - nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "style: apply dart format"
+          git push origin master

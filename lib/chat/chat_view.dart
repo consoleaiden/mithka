@@ -1127,7 +1127,8 @@ class _TranscriptEntry {
   /// True when the ad filter collapsed this run, so its placeholder reads as
   /// an ad notice instead of a blocked-user notice.
   bool get isAdRun =>
-      messages.isNotEmpty && messages.every((message) => message.blockedByAdFilter);
+      messages.isNotEmpty &&
+      messages.every((message) => message.blockedByAdFilter);
   ChatMediaAlbumKind? get mediaAlbumKind =>
       messages.length > 1 && !isBlockedRun ? chatMediaAlbumKind(first) : null;
   bool get isImageGroup => mediaAlbumKind == ChatMediaAlbumKind.visual;
