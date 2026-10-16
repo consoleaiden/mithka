@@ -203,10 +203,7 @@ class _ProxyLatencyViewState extends State<ProxyLatencyView> {
         const SizedBox(width: AppSpacing.md),
         Text(
           value,
-          style: AppTextStyle.bodyLarge(
-            colour,
-            weight: AppTextWeight.semibold,
-          ),
+          style: AppTextStyle.bodyLarge(colour, weight: AppTextWeight.semibold),
         ),
       ],
     );

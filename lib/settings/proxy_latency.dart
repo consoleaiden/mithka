@@ -216,8 +216,8 @@ class ProxyLatencyProbe {
   /// is: `SocketException.osError` codes are per-operating-system, while the
   /// wording for name resolution, refusal and timeout is stable across them.
   static ProxyProbeOutcome _outcomeFor(SocketException error) {
-    final text =
-        '${error.message} ${error.osError?.message ?? ''}'.toLowerCase();
+    final text = '${error.message} ${error.osError?.message ?? ''}'
+        .toLowerCase();
     if (text.contains('failed host lookup') ||
         text.contains('nodename nor servname') ||
         text.contains('no address associated')) {
