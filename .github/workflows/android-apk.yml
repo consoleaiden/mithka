@@ -28,6 +28,11 @@ on:
           - arm64-v8a
           - armeabi-v7a
           - x86_64
+      publish_release:
+        description: 'Also publish the APKs to the "self-build-latest" prerelease'
+        required: false
+        default: true
+        type: boolean
   push:
     branches: [master]
 
@@ -189,3 +194,40 @@ jobs:
           path: build/app/outputs/flutter-apk/*.apk
           retention-days: 30
           if-no-files-found: error
+
+  release:
+    name: Publish to self-build-latest prerelease
+    needs: build
+    if: ${{ github.event.inputs.publish_release != 'false' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download built APKs
+        uses: actions/download-artifact@v7
+        with:
+          name: mithka-android-apk-${{ github.run_number }}
+          path: apks
+
+      - name: Create or refresh prerelease
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: self-build-latest
+        run: |
+          set -euo pipefail
+          cd apks
+          ls -lh ./*.apk
+          # Idempotent: replace the previous self-build prerelease so the
+          # download URL stays stable across runs.
+          if gh release view "$TAG" --repo "${{ github.repository }}" >/dev/null 2>&1; then
+            gh release delete "$TAG" --repo "${{ github.repository }}" --yes --cleanup-tag
+          fi
+          gh release create "$TAG" ./*.apk \
+            --repo "${{ github.repository }}" \
+            --target "${{ github.sha }}" \
+            --title "Self-build Android APK (${GITHUB_SHA::7})" \
+            --prerelease \
+            --notes "Automated self-build of \`${{ github.ref_name }}\` @ \`${GITHUB_SHA::7}\` by \`.github/workflows/android-apk.yml\`.
+
+          - Debug-signed unless ANDROID_KEYSTORE_BASE64 is configured, so this is for sideloading / personal testing only.
+          - If TELEGRAM_API_ID and TELEGRAM_API_HASH were not configured as repository secrets, open **Configure custom API** on the login screen and enter your own credentials from https://my.telegram.org ."
