@@ -781,8 +781,8 @@ class SplashView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // The asset is 1254x1254 and would otherwise decode at full size
-            // (6.3 MB of RGBA) for a 192 pt slot. Width only keeps it square.
+            // The asset is 1024x1024 and would otherwise decode at full size
+            // (4 MB of RGBA) for a 192 pt slot. Width only keeps it square.
             Image(
               image: ResizeImage(AssetImage('assets/penguin.png'), width: 576),
               width: AppMetric.splashPenguinSize,

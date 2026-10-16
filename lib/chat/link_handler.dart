@@ -39,6 +39,8 @@ import '../settings/notification_settings_view.dart';
 import '../settings/privacy_detail_views.dart';
 import '../settings/privacy_security_view.dart';
 import '../settings/proxy_config.dart';
+import '../settings/proxy_latency.dart';
+import '../settings/proxy_latency_view.dart';
 import '../settings/proxy_status.dart';
 import '../settings/proxy_view.dart';
 import '../settings/settings_view.dart';
@@ -598,10 +600,19 @@ Future<bool> _openSettingsLink(
 }
 
 Future<void> _addProxyFromLink(BuildContext context, ProxyConfig config) async {
+  // The link is measured before it is offered: a proxy tapped in a channel
+  // arrives with nothing but an address, and whether that address answers is
+  // what decides if it is worth saving. The probe lives as long as the dialog
+  // so the re-test button measures the same endpoint the first run did.
   final ok = await showAppConfirmDialog(
     context,
     title: AppStrings.t(AppStringKeys.proxyAddProxy),
     message: '${config.label} ${config.server}:${config.port}',
+    content: ProxyLatencyView(
+      host: config.server.trim(),
+      port: config.port,
+      probe: ProxyLatencyProbe(),
+    ),
     confirmText: AppStrings.t(AppStringKeys.proxyAddProxy),
   );
   if (!ok || !context.mounted) return;
