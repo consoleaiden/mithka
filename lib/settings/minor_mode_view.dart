@@ -75,9 +75,7 @@ class _MinorModeViewState extends State<MinorModeView> {
           else
             _keywordCard(keywords),
           const SizedBox(height: AppSpacing.lg),
-          SettingsNote(
-            text: AppStringKeys.minorModeDescription.l10n(context),
-          ),
+          SettingsNote(text: AppStringKeys.minorModeDescription.l10n(context)),
         ],
       ),
     );

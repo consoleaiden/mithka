@@ -19,10 +19,7 @@
 class KeywordRuleSet {
   const KeywordRuleSet._(this._regexes, this._plainLowered);
 
-  static const KeywordRuleSet empty = KeywordRuleSet._(
-    <RegExp>[],
-    <String>[],
-  );
+  static const KeywordRuleSet empty = KeywordRuleSet._(<RegExp>[], <String>[]);
 
   final List<RegExp> _regexes;
   final List<String> _plainLowered;

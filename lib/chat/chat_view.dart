@@ -1119,6 +1119,7 @@ class _TranscriptEntry {
 
   ChatMessage get first => messages.first;
   ChatMessage get last => messages.last;
+
   /// True when every message here is collapsed — by the blocked-user feature
   /// or by the ad filter.
   bool get isBlockedRun =>
@@ -4430,9 +4431,7 @@ class _ChatViewState extends State<ChatView> {
     return Align(
       alignment: Alignment.centerLeft,
       child: GestureDetector(
-        key: ValueKey(
-          '${entry.isAdRun ? 'ad' : 'blocked'}-message-run-$runId',
-        ),
+        key: ValueKey('${entry.isAdRun ? 'ad' : 'blocked'}-message-run-$runId'),
         behavior: HitTestBehavior.opaque,
         onTap: () => setState(() => _expandedBlockedRunIds.add(runId)),
         child: Padding(

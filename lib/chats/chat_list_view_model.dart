@@ -1562,9 +1562,7 @@ class ChatListViewModel extends ChangeNotifier {
         KeywordBlocker.shared.matches(text) ||
         AdFilter.shared.matches(text) ||
         MinorModeFilter.shared.matches(text);
-    return hidden || filtered
-        ? AppStringKeys.chatListBlockedPlaceholder
-        : text;
+    return hidden || filtered ? AppStringKeys.chatListBlockedPlaceholder : text;
   }
 
   // MARK: - Sorting

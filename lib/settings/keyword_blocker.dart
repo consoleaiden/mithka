@@ -37,7 +37,9 @@ class KeywordBlocker extends ChangeNotifier {
 
   void initialize(SharedPreferences prefs) {
     _prefs = prefs;
-    _keywords = normalizeKeywordList(prefs.getStringList(_prefsKey) ?? const []);
+    _keywords = normalizeKeywordList(
+      prefs.getStringList(_prefsKey) ?? const [],
+    );
     _listUrl = prefs.getString(_urlKey)?.trim() ?? '';
     _blockedSenderIds = _parseSenderIds(
       prefs.getStringList(_senderKey) ?? const [],
