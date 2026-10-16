@@ -136,7 +136,11 @@ jobs:
             echo "Telegram credentials injected from repository secrets."
           fi
 
+      # Optional: with no keystore secrets configured this has nothing to do
+      # and the release build falls back to the debug key. It must never block
+      # the APK, so a failure here is recorded and ignored.
       - name: Decode signing keystore
+        continue-on-error: true
         env:
           KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
           STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
